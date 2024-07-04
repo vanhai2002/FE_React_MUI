@@ -30,16 +30,4 @@ server.use(`/api/v1`, RouterSize);
 server.use(`/api/v1`, routerCart);
 server.use("/api/v1", orderRouter);
 
-
 export const viteNodeApp = server;
-
-// viết 1 hàm tăng số lượng
-
-
-
-//
-// git init
-// git remote add origin (dán link github)
-// git add . 
-// git commit -m "init"
-// git push origin main

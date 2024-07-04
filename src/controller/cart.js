@@ -49,7 +49,9 @@ export const addItemToCart = async(req, res) => {
         return res.status(StatusCodes.OK).json({ cart });
     } catch (error) {
         // trả về client lỗi
-        return res.status(StatusCodes.BAD_REQUEST).json({ error: "Internal Server Error" });
+        return res
+            .status(StatusCodes.BAD_REQUEST)
+            .json({ error: "Internal Server Error" });
     }
 };
 // Xóa sản phẩm trong giỏ hàng thuộc 1 user
@@ -59,20 +61,23 @@ export const removeFromCart = async(req, res) => {
     try {
         let cart = await Cart.findOne({ userId });
         if (!cart) {
-            return res.status(StatusCodes.NOT_FOUND).json({ error: "Cart not found" });
+            return res
+                .status(StatusCodes.NOT_FOUND)
+                .json({ error: "Cart not found" });
         }
 
         // Lọc ra sản phẩm có _id không trùng với productId và gán lại vào giỏ hàng
         cart.products = cart.products.filter(
             (product) => product._id.toString() !== productId
         );
-
         // Lưu lại giỏ hàng sau khi đã xóa sản phẩm
         await cart.save();
 
         return res.status(StatusCodes.OK).json({ cart });
     } catch (error) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ error: "Internal Server Error" });
+        return res
+            .status(StatusCodes.BAD_REQUEST)
+            .json({ error: "Internal Server Error" });
     }
 };
 
@@ -82,12 +87,18 @@ export const updateProductQuantity = async(req, res) => {
     try {
         let cart = await Cart.findOne({ userId });
         if (!cart) {
-            return res.status(StatusCodes.NOT_FOUND).json({ error: "Cart not found" });
+            return res
+                .status(StatusCodes.NOT_FOUND)
+                .json({ error: "Cart not found" });
         }
 
-        const product = cart.products.find((item) => item.productId.toString() === productId);
+        const product = cart.products.find(
+            (item) => item.productId.toString() === productId
+        );
         if (!product) {
-            return res.status(StatusCodes.NOT_FOUND).json({ error: "Product not found" });
+            return res
+                .status(StatusCodes.NOT_FOUND)
+                .json({ error: "Product not found" });
         }
         product.quantity = quantity;
         await cart.save();
@@ -97,26 +108,40 @@ export const updateProductQuantity = async(req, res) => {
 // Tăng số lượng của sản phẩm trong giỏ hàng
 export const increaseProductQuantity = async(req, res) => {
     const { userId, productId } = req.body;
-    try {
-        let cart = await Cart.findOne({ userId });
 
+    try {
+        // Tìm kiếm giỏ hàng (cart) dựa trên userId
+        let cart = await Cart.findOne({ userId });
+        // Nếu không tìm thấy giỏ hàng, trả về mã trạng thái 404 và thông báo "Cart not found"
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
-
-        const product = cart.products.find((item) => item.productId.toString() === productId);
+        // Tìm sản phẩm trong giỏ hàng dựa trên _id của sản phẩm
+        const product = cart.products.find(
+            (item) => item._id.toString() == productId
+        );
+        // Nếu không tìm thấy sản phẩm trong giỏ hàng, trả về mã trạng thái 404 và thông báo "Product not found in cart"
         if (!product) {
             return res.status(404).json({ message: "Product not found in cart" });
         }
+        // Log thông tin sản phẩm
+        console.log("productID", product);
+        console.log("Product found:", productId
 
+        );
+        // Tăng số lượng sản phẩm lên 1`
         product.quantity++;
-
+        // Lưu lại giỏ hàng sau khi cập nhật
         await cart.save();
+
+        // Trả về mã trạng thái 200 và giỏ hàng đã được cập nhật
         res.status(200).json(cart);
     } catch (error) {
+        // Nếu có lỗi xảy ra, trả về mã trạng thái 500 và thông báo lỗi
         res.status(500).json({ message: error.message });
     }
 };
+
 // Giảm số lượng của sản phẩm trong giỏ hàng
 export const decreaseProductQuantity = async(req, res) => {
     const { userId, productId } = req.body;
@@ -127,7 +152,9 @@ export const decreaseProductQuantity = async(req, res) => {
             return res.status(404).json({ message: "Cart not found" });
         }
 
-        const product = cart.products.find((item) => item.productId.toString() === productId);
+        const product = cart.products.find(
+            (item) => item._id.toString() === productId
+        );
         if (!product) {
             return res.status(404).json({ message: "Product not found in cart" });
         }
