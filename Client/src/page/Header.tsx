@@ -23,7 +23,7 @@ import { useState } from "react";
 import { logout } from "../services/Auth/Auth";
 const Header = () => {
   const handleLogout = () => {
-    logout(); 
+    logout();
   };
   const storedUser = localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
@@ -36,11 +36,12 @@ const Header = () => {
   };
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "black"
-       }}>
-        <Container maxWidth="xl" sx={{padding: "0 !important",}}>
+      <AppBar position="static" sx={{
+        backgroundColor: "black"
+      }}>
+        <Container maxWidth="xl" sx={{ padding: "0 !important", }}>
           <Toolbar
-            sx={{ height: 90, width: "100%", justifyContent: "space-between",padding: "0 !important", }}
+            sx={{ height: 90, width: "100%", justifyContent: "space-between", padding: "0 !important", }}
           >
             <Link href="/">
               <img style={{ width: 110 }} src={logo} alt="" />
@@ -137,23 +138,23 @@ const Header = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={12} textAlign="center">
-                    <Link href="/signin" color="inherit" underline="none">
+                      <Link href="/signin" color="inherit" underline="none">
 
-                     <Button
-                        type="submit"
-                        variant="contained"
-                        sx={{
-                          bgcolor: "black",
-                          "&:hover": {
-                            bgcolor: "rgba(0, 0, 0, 0.8)",
-                          },
-                          color: "white",
-                        }}
-                        fullWidth
-                        onClick={handleLogout}
-                      >
-                       Log out
-                      </Button>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          sx={{
+                            bgcolor: "black",
+                            "&:hover": {
+                              bgcolor: "rgba(0, 0, 0, 0.8)",
+                            },
+                            color: "white",
+                          }}
+                          fullWidth
+                          onClick={handleLogout}
+                        >
+                          Log out
+                        </Button>
                       </Link>
                     </Grid>
                   </Grid>
@@ -196,3 +197,6 @@ const Header = () => {
 };
 
 export default Header;
+
+
+// xin chào
