@@ -21,6 +21,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import NotFound from "../NotFound/NotFound";
 import { Add, Remove } from "@mui/icons-material";
 import { useState } from "react";
+import CommentSection from "../Comment/CommentSection";
 
 const AddCartButton = styled(Button)({
   width: 250,
@@ -252,6 +253,7 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </Box>
+      <CommentSection />
     </Container>
   );
 };
