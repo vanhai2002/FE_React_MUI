@@ -79,7 +79,7 @@ const CommentSection = () => {
                                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                             />
                         </Box>
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="info">
                             Submit
                         </Button>
                     </Box>
