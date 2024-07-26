@@ -22,6 +22,7 @@ import NotFound from "../NotFound/NotFound";
 import { Add, Remove } from "@mui/icons-material";
 import { useState } from "react";
 import CommentSection from "../Comment/CommentSection";
+import EvaluateSection from "../Evaluate/EvaluateSection";
 
 const AddCartButton = styled(Button)({
   width: 250,
@@ -253,6 +254,7 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </Box>
+      <EvaluateSection />
       <CommentSection />
     </Container>
   );
