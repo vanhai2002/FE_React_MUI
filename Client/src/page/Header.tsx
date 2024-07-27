@@ -13,34 +13,77 @@ import {
   Grid,
   Avatar,
   Button,
+  CircularProgress,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import logo from "src/assets/logo_MUI-removebg.png";
 import { useState } from "react";
 import { logout } from "../services/Auth/Auth";
+import useCartsQuery from "../hook/useCartQuerry";
+
 const Header = () => {
   const handleLogout = () => {
-    logout(); 
+    logout();
   };
+
   const storedUser = localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
+  const { data, isLoading, error } = useCartsQuery(user?._id);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography color="error">Failed to load cart data.</Typography>
+      </Box>
+    );
+  }
+
+  const productsCount = data?.products?.length || 0;
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "black"
-       }}>
-        <Container maxWidth="xl" sx={{padding: "0 !important",}}>
+      <AppBar position="static" sx={{ backgroundColor: "black" }}>
+        <Container maxWidth="xl" sx={{ padding: "0 !important" }}>
           <Toolbar
-            sx={{ height: 90, width: "100%", justifyContent: "space-between",padding: "0 !important", }}
+            sx={{
+              height: 90,
+              width: "100%",
+              justifyContent: "space-between",
+              padding: "0 !important",
+            }}
           >
             <Link href="/">
               <img style={{ width: 110 }} src={logo} alt="" />
@@ -80,9 +123,22 @@ const Header = () => {
               />
               <SearchIcon />
             </IconButton>
-            <Badge badgeContent={4} sx={{ mr: 4 }} color="error">
-              <MailIcon color="inherit" />
-            </Badge>
+            <Link  color="inherit" href="/checkOut">
+
+          <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="open shopping cart"
+              aria-controls="menu-cart"
+              aria-haspopup="true"
+              sx={{ mr: 2 }}
+            >
+              <Badge badgeContent={productsCount} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Link>
             <IconButton
               size="large"
               edge="end"
@@ -137,23 +193,22 @@ const Header = () => {
                       </Typography>
                     </Grid>
                     <Grid item xs={12} textAlign="center">
-                    <Link href="/signin" color="inherit" underline="none">
-
-                     <Button
-                        type="submit"
-                        variant="contained"
-                        sx={{
-                          bgcolor: "black",
-                          "&:hover": {
-                            bgcolor: "rgba(0, 0, 0, 0.8)",
-                          },
-                          color: "white",
-                        }}
-                        fullWidth
-                        onClick={handleLogout}
-                      >
-                       Log out
-                      </Button>
+                      <Link href="/signin" color="inherit" underline="none">
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          sx={{
+                            bgcolor: "black",
+                            "&:hover": {
+                              bgcolor: "rgba(0, 0, 0, 0.8)",
+                            },
+                            color: "white",
+                          }}
+                          fullWidth
+                          onClick={handleLogout}
+                        >
+                          Log out
+                        </Button>
                       </Link>
                     </Grid>
                   </Grid>
