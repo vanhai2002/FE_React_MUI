@@ -1,10 +1,9 @@
-import axiosInstance  from "../../config/Axios";
+import axiosInstance from "../../config/Axios";
 import { IFormInput, LoginForm } from "@/interfaces/Auth";
-
-export const register = async(data: IFormInput) => {
+export const register = async (data: IFormInput) => {
     // try {
-        const response = await axiosInstance.post(`api/v1/singup`, data);
-        return response.data;
+    const response = await axiosInstance.post(`api/v1/singup`, data);
+    return response.data;
     // } catch (error) {
     //     if (error.response) {
     //         console.error(error.response.data); 
@@ -16,15 +15,15 @@ export const register = async(data: IFormInput) => {
     //       }
     // }
 }
-export const Login = async(data: LoginForm) => {
+export const Login = async (data: LoginForm) => {
     // try {
-        const response = await axiosInstance.post(`api/v1/singin`, data);
-        const { user, token } = response.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+    const response = await axiosInstance.post(`api/v1/singin`, data);
+    const { user, token } = response.data;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
 
-        // Return user data
-        return user;
+    // Return user data
+    return user;
     // } catch (error) {
     //     if (error.response) {
     //         console.error(error.response.data); 

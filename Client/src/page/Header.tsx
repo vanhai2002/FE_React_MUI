@@ -75,6 +75,7 @@ const Header = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <AppBar position="static" sx={{ backgroundColor: "black" }}>
         <Container maxWidth="xl" sx={{ padding: "0 !important" }}>
           <Toolbar
@@ -84,6 +85,14 @@ const Header = () => {
               justifyContent: "space-between",
               padding: "0 !important",
             }}
+=======
+      <AppBar position="static" sx={{
+        backgroundColor: "black"
+      }}>
+        <Container maxWidth="xl" sx={{ padding: "0 !important", }}>
+          <Toolbar
+            sx={{ height: 90, width: "100%", justifyContent: "space-between", padding: "0 !important", }}
+>>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
           >
             <Link href="/">
               <img style={{ width: 110 }} src={logo} alt="" />
@@ -194,6 +203,10 @@ const Header = () => {
                     </Grid>
                     <Grid item xs={12} textAlign="center">
                       <Link href="/signin" color="inherit" underline="none">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
                         <Button
                           type="submit"
                           variant="contained"
@@ -251,3 +264,6 @@ const Header = () => {
 };
 
 export default Header;
+
+
+// xin chào
