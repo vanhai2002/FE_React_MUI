@@ -22,6 +22,8 @@ import { Add, Remove } from "@mui/icons-material";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useCartMutation from "../../../../hook/useCartMutation";
+import EvaluateSection from "../Evaluate/EvaluateSection";
+import CommentSection from "../Comment/CommentSection";
 
 const AddCartButton = styled(Button)({
   width: 250,
@@ -265,6 +267,8 @@ const ProductDetail = () => {
           </Box>
         </Box>
       </form>
+      <EvaluateSection product={product} />
+      <CommentSection />
     </Container>
   );
 };

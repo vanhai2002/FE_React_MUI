@@ -74,67 +74,56 @@ const Header = () => {
   };
 
   return (
-    <>
-<<<<<<< HEAD
-      <AppBar position="static" sx={{ backgroundColor: "black" }}>
-        <Container maxWidth="xl" sx={{ padding: "0 !important" }}>
-          <Toolbar
-            sx={{
-              height: 90,
-              width: "100%",
-              justifyContent: "space-between",
-              padding: "0 !important",
-            }}
-=======
-      <AppBar position="static" sx={{
-        backgroundColor: "black"
-      }}>
-        <Container maxWidth="xl" sx={{ padding: "0 !important", }}>
-          <Toolbar
-            sx={{ height: 90, width: "100%", justifyContent: "space-between", padding: "0 !important", }}
->>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
+    <AppBar position="static" sx={{ backgroundColor: "black" }}>
+      <Container maxWidth="xl" sx={{ padding: "0 !important" }}>
+        <Toolbar
+          sx={{
+            height: 90,
+            width: "100%",
+            justifyContent: "space-between",
+            padding: "0 !important",
+          }}
+        >
+          <Link href="/">
+            <img style={{ width: 110 }} src={logo} alt="" />
+          </Link>
+          <Link href="/" sx={{ color: "white", textDecoration: "none" }}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              SoleStyle Footwear
+            </Typography>
+          </Link>
+          <Box
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
           >
-            <Link href="/">
-              <img style={{ width: 110 }} src={logo} alt="" />
+            <Link sx={{ mx: 2 }} color="inherit" href="#">
+              Home
             </Link>
-            <Link href="/" sx={{ color: "white", textDecoration: "none" }}>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                SoleStyle Footwear
-              </Typography>
+            <Link sx={{ mx: 2 }} color="inherit" href="#">
+              About
             </Link>
-            <Box
-              sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}
-            >
-              <Link sx={{ mx: 2 }} color="inherit" href="#">
-                Home
-              </Link>
-              <Link sx={{ mx: 2 }} color="inherit" href="#">
-                About
-              </Link>
-              <Link sx={{ mx: 2 }} color="inherit" href="#">
-                Services
-              </Link>
-              <Link sx={{ mx: 2 }} color="inherit" href="#">
-                Contact
-              </Link>
-            </Box>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="search"
-              sx={{ mr: 2 }}
-            >
-              <InputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                sx={{ color: "inherit", flexGrow: 1, mr: 6 }}
-              />
-              <SearchIcon />
-            </IconButton>
-            <Link  color="inherit" href="/checkOut">
-
+            <Link sx={{ mx: 2 }} color="inherit" href="#">
+              Services
+            </Link>
+            <Link sx={{ mx: 2 }} color="inherit" href="#">
+              Contact
+            </Link>
+          </Box>
           <IconButton
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="search"
+            sx={{ mr: 2 }}
+          >
+            <InputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              sx={{ color: "inherit", flexGrow: 1, mr: 6 }}
+            />
+            <SearchIcon />
+          </IconButton>
+          <Link color="inherit" href="/checkOut">
+            <IconButton
               size="large"
               edge="end"
               color="inherit"
@@ -148,122 +137,114 @@ const Header = () => {
               </Badge>
             </IconButton>
           </Link>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="notifications"
-              sx={{ mr: 2 }}
-            >
-              <NotificationsIcon />
-            </IconButton>
-            {user ? (
-              <Box>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  aria-label="account of current user"
-                  onClick={handleClick}
-                >
-                  <Avatar
-                    alt={user?.name}
-                    src={user?.avatar}
-                    sx={{ width: 32, height: 32, border: "1px solid gray" }}
-                  />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                  }}
-                >
-                  <Grid container spacing={2} sx={{ p: 2 }}>
-                    <Grid item xs={12} textAlign="center">
-                      <Avatar
-                        alt={user?.name}
-                        src={user?.avatar}
-                        sx={{ width: 80, height: 80, mx: "auto" }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} textAlign="center">
-                      <Typography variant="h6">{user?.name}</Typography>
-                    </Grid>
-                    <Grid item xs={12} textAlign="center">
-                      <Typography variant="body2" color="textSecondary">
-                        {user?.email}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} textAlign="center">
-                      <Link href="/signin" color="inherit" underline="none">
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          sx={{
-                            bgcolor: "black",
-                            "&:hover": {
-                              bgcolor: "rgba(0, 0, 0, 0.8)",
-                            },
-                            color: "white",
-                          }}
-                          fullWidth
-                          onClick={handleLogout}
-                        >
-                          Log out
-                        </Button>
-                      </Link>
-                    </Grid>
+          <IconButton
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="notifications"
+            sx={{ mr: 2 }}
+          >
+            <NotificationsIcon />
+          </IconButton>
+          {user ? (
+            <Box>
+              <IconButton
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="account of current user"
+                onClick={handleClick}
+              >
+                <Avatar
+                  alt={user?.name}
+                  src={user?.avatar}
+                  sx={{ width: 32, height: 32, border: "1px solid gray" }}
+                />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center",
+                }}
+              >
+                <Grid container spacing={2} sx={{ p: 2 }}>
+                  <Grid item xs={12} textAlign="center">
+                    <Avatar
+                      alt={user?.name}
+                      src={user?.avatar}
+                      sx={{ width: 80, height: 80, mx: "auto" }}
+                    />
                   </Grid>
-                </Menu>
-              </Box>
-            ) : (
-              <Box>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  aria-label="account of current user"
-                  onClick={handleClick}
-                >
-                  <AccountCircleIcon />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>
+                  <Grid item xs={12} textAlign="center">
+                    <Typography variant="h6">{user?.name}</Typography>
+                  </Grid>
+                  <Grid item xs={12} textAlign="center">
+                    <Typography variant="body2" color="textSecondary">
+                      {user?.email}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} textAlign="center">
                     <Link href="/signin" color="inherit" underline="none">
-                      Login
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                          bgcolor: "black",
+                          "&:hover": {
+                            bgcolor: "rgba(0, 0, 0, 0.8)",
+                          },
+                          color: "white",
+                        }}
+                        fullWidth
+                        onClick={handleLogout}
+                      >
+                        Log out
+                      </Button>
                     </Link>
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <Link href="/signup" color="inherit" underline="none">
-                      Register
-                    </Link>
-                  </MenuItem>
-                </Menu>
-              </Box>
-            )}
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </>
+                  </Grid>
+                </Grid>
+              </Menu>
+            </Box>
+          ) : (
+            <Box>
+              <IconButton
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="account of current user"
+                onClick={handleClick}
+              >
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>
+                  <Link href="/signin" color="inherit" underline="none">
+                    Login
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link href="/signup" color="inherit" underline="none">
+                    Register
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 
 export default Header;
-
-
-// xin chào

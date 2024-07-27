@@ -10,31 +10,26 @@ import {
   Paper,
   IconButton,
   CircularProgress,
-<<<<<<< HEAD
   Tooltip,
-=======
   TablePagination,
->>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import useProductsQuery from "../../../hook/UseProductsQuerry";
-import NotFound from "../../../page/website/Home/NotFound/NotFound";
-import { IdProducts } from "@/interfaces/Products";
-import { Link } from "react-router-dom";
-import useProductMutation from "../../../hook/UseProductMutation";
 import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
+import useProductsQuery from "../../../hook/UseProductsQuerry";
+import useProductMutation from "../../../hook/UseProductMutation";
 import UseCategory from "../../../hook/UseCategory";
 import { formatCurrencyVND } from "../../../services/VND/Vnd";
-<<<<<<< HEAD
-
-=======
+import NotFound from "../../../page/website/Home/NotFound/NotFound";
+import { IdProducts } from "@/interfaces/Products";
 import React from "react";
->>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
+
 interface Category {
   _id: string;
   name: string;
 }
+
 const AdminProductList = () => {
   // Hook calls at the top level
   const { data, isLoading } = useProductsQuery();
@@ -48,6 +43,7 @@ const AdminProductList = () => {
   // Handle loading state
   if (isLoading || loadingCategory) return <CircularProgress />;
   if (!data) return <NotFound />;
+
   const handleDelete = async (id: number | string) => {
     await mutate({ _id: id } as IdProducts);
   };
@@ -63,30 +59,33 @@ const AdminProductList = () => {
     setPage(0);
   };
 
+  // Calculate paginated data
+  const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
   return (
     <Box sx={{ padding: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Danh Sách Sản Phẩm
-      </Typography>
-      <Tooltip title="Thêm sản phẩm" arrow>
-        <Link to={`/admin/productAdd`} style={{ textDecoration: 'none' }}>
-          <IconButton
-            sx={{
-              background: 'linear-gradient(45deg, #6a1b9a 30%, #ab47bc 90%)',
-              color: 'white',
-              '&:hover': {
-                background: 'linear-gradient(45deg, #6a1b9a 40%, #ab47bc 100%)',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-              },
-              transition: 'background 0.3s, boxShadow 0.3s',
-            }}
-          >
-            <AddIcon />
-          </IconButton>
-        </Link>
-      </Tooltip>
-    </Box>
+        <Typography variant="h4" gutterBottom>
+          Danh Sách Sản Phẩm
+        </Typography>
+        <Tooltip title="Thêm sản phẩm" arrow>
+          <Link to={`/admin/productAdd`} style={{ textDecoration: 'none' }}>
+            <IconButton
+              sx={{
+                background: 'linear-gradient(45deg, #6a1b9a 30%, #ab47bc 90%)',
+                color: 'white',
+                '&:hover': {
+                  background: 'linear-gradient(45deg, #6a1b9a 40%, #ab47bc 100%)',
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                },
+                transition: 'background 0.3s, boxShadow 0.3s',
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Link>
+        </Tooltip>
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -101,8 +100,7 @@ const AdminProductList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-<<<<<<< HEAD
-            { data && data.map((product: IdProducts) => (
+            {paginatedData.map((product: IdProducts) => (
               <TableRow key={product._id}>
                 <TableCell>{product.name}</TableCell>
                 <TableCell>
@@ -155,68 +153,6 @@ const AdminProductList = () => {
                 </TableCell>
               </TableRow>
             ))}
-=======
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((product: IdProducts) => (
-                <TableRow key={product._id}>
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>
-                    <img
-                      src={product.img}
-                      alt={product.name}
-                      style={{ width: 50, height: 50 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {product.discount > 0
-                      ? formatCurrencyVND(
-                          product.price * (1 - product.discount / 100)
-                        )
-                      : formatCurrencyVND(product.price)}
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        width: "350px",
-                        height: "50px",
-                        overflowY: "auto",
-                        overflowX: "hidden",
-                        fontWeight: 500,
-                        padding: "4px",
-                      }}
-                    >
-                      {product.description}
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {product.discount > 0 ? `${product.discount}%` : "Không có"}
-                  </TableCell>
-                  <TableCell>
-                    {categories?.find(
-                      (cat: Category) => cat._id === product.category
-                    )?.name || "Không có"}
-                  </TableCell>
-                  <TableCell>
-                    <Link to={`/admin/productAdd`}>
-                      <IconButton>
-                        <AddIcon />
-                      </IconButton>
-                    </Link>
-                    <Link to={`/admin/product/edit/${product._id}`}>
-                      <IconButton>
-                        <EditIcon />
-                      </IconButton>
-                    </Link>
-                    <IconButton
-                      onClick={() => product._id && handleDelete(product._id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
->>>>>>> 6b744c7be8eb144cb8be4d28531e5b9147beb60f
           </TableBody>
         </Table>
         <TablePagination

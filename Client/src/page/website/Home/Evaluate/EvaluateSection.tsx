@@ -96,69 +96,69 @@ const EvaluateSection = ({ product } : EvaluateSectionProps) => {
             fontFamily="Poppins"
             dangerouslySetInnerHTML={{ __html: detailedContent }}
           />
-        </Grid>
+          </Grid>
 
-        {/* Phần hình ảnh */}
-        <Grid item xs={12} md={4}>
-          <img
-            src="/src/img/sanpham1-removebg-preview.png"
-            alt="Description Image"
-            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-          />
-          <img
-            src="/src/img/buistore-air-jordan-1-retro-high-lost-found-5-removebg-preview.png"
-            alt="Description Image"
-            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-          />
-        </Grid>
-      </Grid>
-      <Typography
-        variant="h5"
-        fontFamily="Poppins"
-        fontWeight={500}
-        gutterBottom
-        textAlign="center"
-        fontSize={50}
-        sx={{ mt: 5 }}
-      >
-        Similar Products
-      </Typography>
-      <Grid container spacing={4} sx={{ mt: 2 }}>
-        {productsCategory &&
-          productsCategory.map((item : IdProducts) => (
-            <Grid item xs={12} sm={6} md={3} key={item._id}>
-              <SimilarProductCard>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={item.img}
-                  alt={item.name}
-                />
-                <CardContent>
-                  <Typography variant="h6" fontFamily="Poppins" fontWeight={400}>
-                    {item.name}
-                  </Typography>
-                  <Typography variant="body1" color="textSecondary" mt={1}>
-                    {formatCurrencyVND(item.price)}
-                  </Typography>
-                  <Link to={`/product/${item._id}`}>
-                  
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    fullWidth
-                    sx={{ mt: 2 }}
-                  >
-                    View Details
-                  </Button>
-                  </Link>
-                </CardContent>
-              </SimilarProductCard>
-            </Grid>
-          ))}
-      </Grid>
-    </Box>
-  );
+{/* Phần hình ảnh */}
+<Grid item xs={12} md={4}>
+  <img
+    src="/src/img/sanpham1-removebg-preview.png"
+    alt="Description Image"
+    style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+  />
+  <img
+    src="/src/img/buistore-air-jordan-1-retro-high-lost-found-5-removebg-preview.png"
+    alt="Description Image"
+    style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+  />
+</Grid>
+</Grid>
+<Typography
+variant="h5"
+fontFamily="Poppins"
+fontWeight={500}
+gutterBottom
+textAlign="center"
+fontSize={50}
+sx={{ mt: 5 }}
+>
+Similar Products
+</Typography>
+<Grid container spacing={4} sx={{ mt: 2 }}>
+{productsCategory &&
+  productsCategory.map((item : IdProducts) => (
+    <Grid item xs={12} sm={6} md={3} key={item._id}>
+      <SimilarProductCard>
+        <CardMedia
+          component="img"
+          height="140"
+          image={item.img}
+          alt={item.name}
+        />
+        <CardContent>
+          <Typography variant="h6" fontFamily="Poppins" fontWeight={400}>
+            {item.name}
+          </Typography>
+          <Typography variant="body1" color="textSecondary" mt={1}>
+            {formatCurrencyVND(item.price)}
+          </Typography>
+          <Link to={`/product/${item._id}`}>
+          
+          <Button
+            variant="outlined"
+            color="primary"
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            View Details
+          </Button>
+          </Link>
+        </CardContent>
+      </SimilarProductCard>
+    </Grid>
+  ))}
+</Grid>
+</Box>
+);
 };
 
-export default EvaluateSection;
+export default EvaluateSection
