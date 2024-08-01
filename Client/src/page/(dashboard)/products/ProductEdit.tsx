@@ -72,7 +72,7 @@ const ProductEdit = () => {
         imgCategory: imgCategoryUrls,
       });
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/products");
       }, 2000);
     } catch (error) {
       toast.error("Lỗi khi sửa sản phẩm");

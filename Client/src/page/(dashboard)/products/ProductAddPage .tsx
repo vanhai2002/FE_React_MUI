@@ -73,7 +73,7 @@ const ProductAddPage = () => {
         imgCategory: imgCategoryURLs.length ? imgCategoryURLs : data?.imgCategory,
       });
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/products");
       }, 2000);
     } catch (error) {
       toast.error("Lỗi khi Thêm sản phẩm");
