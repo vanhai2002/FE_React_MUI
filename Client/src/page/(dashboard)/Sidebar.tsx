@@ -26,18 +26,18 @@ const AdminMenuList = () => {
         <ListItemText primary="Products" />
       </ListItem>
 
-      <ListItem button component={Link} to="/admin/orders">
+      <ListItem button component={Link} to="/admin/category">
         <ListItemIcon>
           <InboxIcon sx={{color: "white"}} />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="category" />
       </ListItem>
 
-      <ListItem button component={Link} to="/admin/customers">
+      <ListItem button component={Link} to="/admin/order">
         <ListItemIcon>
           <PeopleIcon sx={{color: "white"}} />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="order" />
       </ListItem>
 
       <ListItem button component={Link} to="/admin/messages">

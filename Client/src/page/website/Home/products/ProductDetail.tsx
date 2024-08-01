@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -10,20 +11,20 @@ import {
   TextField,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { formatCurrencyVND } from "../../../../services/VND/Vnd";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Add, Remove, Favorite, FavoriteBorder } from "@mui/icons-material";
+import StarIcon from "@mui/icons-material/Star";
 import { styled } from "@mui/system";
 import { useParams } from "react-router-dom";
 import ImgProductDetail from "./ImgProductDetail";
-import StarIcon from "@mui/icons-material/Star";
+import { formatCurrencyVND } from "../../../../services/VND/Vnd";
 import useProductsQuery from "../../../../hook/UseProductsQuerry";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import NotFound from "../NotFound/NotFound";
-import { Add, Remove } from "@mui/icons-material";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import useCartMutation from "../../../../hook/useCartMutation";
 import EvaluateSection from "../Evaluate/EvaluateSection";
 import CommentSection from "../Comment/CommentSection";
+import { updateProductFeaturedStatus } from "../../../../services/Products";
 
 const AddCartButton = styled(Button)({
   width: 250,
@@ -47,15 +48,20 @@ const labels: { [index: string]: string } = {
   5: "Excellent+",
 };
 
-const value = 4.5;
+const value = 4.5; // Giá trị đánh giá mặc định
 
 const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
+  const [isFeatured, setIsFeatured] = useState(false);
   const { id } = useParams();
-  const { data: product, isLoading } = useProductsQuery(id);
-  const { mutate } = useCartMutation({
-    action: "CREATE",
-  });
+  const { data: product, isLoading, refetch } = useProductsQuery(id);
+  const { mutate } = useCartMutation({ action: "CREATE" });
+
+  useEffect(() => {
+    if (product) {
+      setIsFeatured(product.featured);
+    }
+  }, [product]);
 
   if (isLoading) {
     return (
@@ -71,32 +77,42 @@ const ProductDetail = () => {
       </Box>
     );
   }
+
   if (!product) {
     return <NotFound />;
   }
 
   const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    setQuantity(prevQuantity => prevQuantity + 1);
   };
 
   const decreaseQuantity = () => {
-    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+    setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.max(1, Number(e.target.value));
     setQuantity(value);
   };
+
   const userId = JSON.parse(localStorage.getItem("user") || "{}")._id;
   if (!userId) return toast.error("Bạn chưa đăng nhập !!");
   const productId = product._id;
+
   const handleAddToCart = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await mutate({
-      userId,
-      productId,
-      quantity,
-    });
+    await mutate({ userId, productId, quantity });
+  };
+
+  const toggleFeatured = async () => {
+    try {
+      const updatedProduct = await updateProductFeaturedStatus(productId, !isFeatured);
+      setIsFeatured(updatedProduct.featured);
+      // Làm mới dữ liệu sản phẩm để đảm bảo dữ liệu là mới nhất
+      await refetch();
+    } catch (error) {
+      toast.error('Cập nhật trạng thái sản phẩm thất bại!');
+    }
   };
 
   return (
@@ -110,7 +126,7 @@ const ProductDetail = () => {
             gap: 3,
           }}
         >
-          <Grid container gap={6} alignItems={"center"} spacing={2}>
+          <Grid container gap={6} alignItems="center" spacing={2}>
             <Grid item xs={2}>
               <ImgProductDetail product={product} />
             </Grid>
@@ -168,8 +184,15 @@ const ProductDetail = () => {
               fontFamily="Poppins"
               fontWeight={400}
               textAlign="left"
+              sx={{ display: "flex", alignItems: "center" }}
             >
               {product.name}
+              <IconButton
+                onClick={toggleFeatured}
+                sx={{ color: isFeatured ? "red" : "gray", ml: 2 }}
+              >
+                {isFeatured ? <Favorite /> : <FavoriteBorder />}
+              </IconButton>
             </Typography>
             <Typography
               variant="h6"
@@ -179,9 +202,7 @@ const ProductDetail = () => {
               my={2}
             >
               {product.discount > 0
-                ? formatCurrencyVND(
-                    product.price * (1 - product.discount / 100)
-                  )
+                ? formatCurrencyVND(product.price * (1 - product.discount / 100))
                 : formatCurrencyVND(product.price)}
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -191,9 +212,7 @@ const ProductDetail = () => {
                   value={value}
                   readOnly
                   precision={0.5}
-                  emptyIcon={
-                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                  }
+                  emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                 />
                 <Typography variant="body1" color="black" ml={2}>
                   {labels[value]}

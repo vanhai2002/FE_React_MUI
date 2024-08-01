@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 const UseCategory = (id? : number | string) => {
 
     const { data, ...rest } = useQuery({
-        queryKey: ["CATEGORY", id],
+        queryKey: ["CATEGORY_KEY", id],
         queryFn: async () => {
             return id ? await getCategorysById(id) : await getCategorys();
         },

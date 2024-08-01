@@ -15,6 +15,12 @@ import LayoutAdmin from "./page/(dashboard)/Layout/LayoutAdmin";
 import ProductEdit from "./page/(dashboard)/products/ProductEdit";
 import Checkout from "./page/website/Home/Cart/Order";
 import { AuthProvider } from "./services/Auth/AuthContext";
+import ProductsLiked from "./page/website/Home/products/ProductsLiked";
+import AdminCategory from "./page/(dashboard)/category/ListCategory";
+import AddCategory from "./page/(dashboard)/category/AddCategory";
+import EditCategory from "./page/(dashboard)/category/EditCategory";
+import OrderDetails from "./page/(dashboard)/Order/OrderDetails";
+import OrderList from "./page/(dashboard)/Order/OrderList";
 const routeConfig = [
   {
     path: "/",
@@ -26,6 +32,7 @@ const routeConfig = [
       { path: "category/:id", element: <CategoryList /> },
       { path: "category/:id/product/:id", element: <ProductDetail /> },
       { path: "signup", element: <RegisterForm /> },
+      { path:"products/Liked", element: <ProductsLiked />  },
       { path: "signin", element: <Singin /> },
       { path: "signin", element: <Singin /> },
       {
@@ -44,12 +51,32 @@ const routeConfig = [
     ),
     children: [
       {
-        path: "",
+        path: "products",
         element: <ListProducts />,
+      },
+      {
+        path: "category",
+        element: <AdminCategory />,
+      },
+      {
+        path: "category/add",
+        element: <AddCategory />,
       },
       {
         path: "productAdd",
         element: <ProductAddPage />,
+      },
+      {
+        path: "category/edit/:id",
+        element: <EditCategory />,
+      },
+      {
+        path: "order",
+        element: <OrderList />,
+      },
+      {
+        path: "orders/:userId/:orderId",
+        element: <OrderDetails />,
       },
       {
         path: "product/edit/:id",

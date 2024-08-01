@@ -1,5 +1,9 @@
 import axiosInstance from "../../config/Axios";
-import { IdProducts } from "@/interfaces/Products";
+interface Category {
+  _id: string;
+  name: string;
+  // Add more properties if needed
+}
 export const getCategorys = async () => {
   try {
     const response = await axiosInstance.get("/api/v1/category");
@@ -16,7 +20,7 @@ export const getCategorysById = async (id?: number | string) => {
     console.log(error);
   }
 };
-export const addCategory = async (product: IdProducts) => {
+export const addCategory = async (product: Category) => {
   try {
     const response = await axiosInstance.post(`/api/v1/category`, product);
     return response.data;
@@ -32,7 +36,7 @@ export const deleteCategory = async (id?: number | string) => {
     console.log(error);
   }
 };
-export const updateCategory = async (product: IdProducts) => {
+export const updateCategory = async (product: Category) => {
   try {
     const response = await axiosInstance.put(
       `/api/v1/category/${product._id}`,

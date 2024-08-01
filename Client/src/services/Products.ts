@@ -55,3 +55,12 @@ export const updateProduct = async (product: IdProducts) => {
     toast.error("Lỗi khi cập nhật sản phẩm");
   }
 };
+export const updateProductFeaturedStatus = async (id: string  , featured : boolean) => {
+  try {
+    const response = await axiosInstance.patch(`/api/products/${id}/featured`, { featured });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating product featured status:", error);
+    toast.error("Lỗi khi cập nhật trạng thái nổi bật của sản phẩm");
+  }
+};
